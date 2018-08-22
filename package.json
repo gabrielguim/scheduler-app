@@ -1,0 +1,32 @@
+{
+  "name": "scheduler-app",
+  "version": "1.0.0",
+  "description": "A simple app using React + Redux :)",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielguim/scheduler-app.git"
+  },
+  "author": "Gabriel Guimarães",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gabrielguim/scheduler-app/issues"
+  },
+  "homepage": "https://github.com/gabrielguim/scheduler-app#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "^1.1.5",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {}
+}
