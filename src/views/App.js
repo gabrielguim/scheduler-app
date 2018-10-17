@@ -1,30 +1,11 @@
 import React from 'react'
-import { getMessage } from '../actions/MessageAction'
-import { connect } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom';
+import { Router } from '../config/Router';
 
-class App extends React.Component {
-    
-    componentDidMount() {
-        this.props.getMessage();
-    }
-
-    render() {
-        return (
-            <h1>{this.props.data}</h1>
-        )
-    }    
+const App = () => {
+    <BrowserRouter>
+        <Router />
+    </BrowserRouter>
 }
 
-function mapStateToProps(state) {              
-    return {
-        data: state.MessageReducer.data
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        getMessage: () => dispatch(getMessage())
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default App;
