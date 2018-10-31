@@ -1,11 +1,11 @@
 import React from 'react'
 import { BrowserRouter } from 'react-router-dom';
-import { Router } from '../config/Router';
+import Router from '../routers/Router';
+import applyProvider from '../store/applyProvider';
 
-const App = () => {
+const App = () => 
     <BrowserRouter>
         <Router />
     </BrowserRouter>
-}
 
-export default App;
+export default applyProvider(App);

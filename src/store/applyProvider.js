@@ -4,8 +4,8 @@ import { firebase } from '../firebase/Firebase';
 import { saveTokenAndUID } from './StoreService';
 import { getUser } from '../service/UserService';
 
-const withAuthentication = (Component) => {
-    class WithAuthentication extends React.Component {
+const applyProvider = (Component) => 
+    class UserContextProvider extends React.Component {
         constructor(props) {
             super(props);
 
@@ -28,9 +28,7 @@ const withAuthentication = (Component) => {
             this.setState(() => ({ authUser: authUser, userInfo: userInfo }))            
         }
 
-        componentDidMount() {
-            const self = this;
-            
+        componentDidMount() {           
             firebase.auth.onAuthStateChanged(authUser => { 
                 if (authUser) {          
                   authUser.getIdToken().then(function(data) {
@@ -65,7 +63,6 @@ const withAuthentication = (Component) => {
         }
 
     }
-}
 
 
-export default withAuthentication;
+export default applyProvider;
