@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { createSchedulerHeader } from './SchedulerHeader';
 
 export const registerUser = () => {
     const headers = {
-        headers: this.createSchedulerHeader()
+        headers: createSchedulerHeader()
     }
 
     return axios.get('http://localhost:3001/api/user', headers);
@@ -10,7 +11,7 @@ export const registerUser = () => {
 
 export const getUser = (uid) => {
     const headers = {
-        headers: this.createSchedulerHeader()
+        headers: createSchedulerHeader()
     }
 
     return axios.get('http://localhost:3001/api/user', headers);
