@@ -1,42 +1,41 @@
 import React, { Component } from 'react';
 
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core';
+import { 
+    withStyles, 
+    TextField
+} from '@material-ui/core';
+
+const styles = theme => ({
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        marginTop: 8
+    },
+    textField: {
+      marginLeft: theme.spacing.unit,
+      marginRight: theme.spacing.unit,
+    }
+});
 
 class LoginTabPage extends Component {
 
     render() {
+        const { classes } = this.props;
+
         return(
-            <Card>
-                <CardContent>
-                    <Typography color="textSecondary" gutterBottom>
-                    d1092412947812
-                    </Typography>
-                    <Typography variant="h5" component="h2">
-                    be
-                    nev
-                    lent
-                    </Typography>
-                    <Typography color="textSecondary">
-                    adjective
-                    </Typography>
-                    <Typography component="p">
-                    well meaning and kindly.
-                    <br />
-                    {'"a benevolent smile"'}
-                    </Typography>
-                </CardContent>
-                <CardActions>
-                    <Button size="small">Learn More</Button>
-                </CardActions>
-            </Card>
+            <div className={classes.container}>
+                <TextField id="outlined-email-input" label="Email"
+                        className={classes.textField}
+                        type="email" name="email" autoComplete="email"
+                        margin="normal" fullWidth variant="outlined" />
+                <TextField id="outlined-pwd-input" label="Password"
+                        className={classes.textField}
+                        type="password" name="password"
+                        margin="normal" fullWidth variant="outlined" />
+            </div>
         )
     }
 
 }
 
-export default LoginTabPage
+export default withStyles(styles)(LoginTabPage)

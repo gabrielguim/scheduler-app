@@ -23,6 +23,9 @@ const styles = theme => ({
     appbar: {
         backgroundColor: 'white',
         color: 'black'
+    },
+    content: {
+        maxWidth: '60vh'
     }
 });
 
@@ -50,7 +53,7 @@ class AuthPage extends Component {
                 </AppBar>
                 <Grid item xs={12}>
                     <Grid container className={classes.root} direction="column" justify="center" alignItems="center">
-                        <Card>
+                        <Card elevation={0} className={classes.content}>
                             <CardContent>
                                 <Tabs value={this.state.activeTab} indicatorColor="primary" fullWidth
                                     textColor="primary" onChange={this.handleChange}>
