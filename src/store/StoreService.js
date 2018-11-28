@@ -3,6 +3,10 @@ const saveTokenAndUID = (token, uid) => {
     localStorage.setItem("T", token);
 }
 
+const clearTokenAndUID = () => {
+    localStorage.clear();
+}
+
 const getTokenAndUID = () => {
     const uid = localStorage.getItem("I");
     const token = localStorage.getItem("T");
@@ -15,7 +19,8 @@ const getTokenAndUID = () => {
 
 const StoreService = {
     saveTokenAndUID,
-    getTokenAndUID
+    getTokenAndUID,
+    clearTokenAndUID
 }
 
 export default StoreService;

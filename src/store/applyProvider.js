@@ -6,21 +6,20 @@ import UserService from '../service/UserService';
 
 const applyProvider = (Component) => 
     class UserContextProvider extends React.Component {
-        constructor(props) {
-            super(props);
-
-            this.state = {
-                authUser: null,
-                userInfo: {
-                    'name': "Usuário",
-                    'email': "-",
-                    'uid': ""
-                },
-                updateUserInfo: (newUserInfo) => {
-                    this.setState(() => ({ userInfo: newUserInfo }))
-                }
-            };
-        }
+        
+        state = {
+            authUser: null,
+            showSnippet: false,
+            userInfo: {
+                '_id': "",
+                'name': "Usuário",
+                'email': "-",
+                'uid': ""
+            },
+            updateUserInfo: (newUserInfo) => {
+                this.setState(() => ({ userInfo: newUserInfo }))
+            }
+        };
 
         updateAuthUser(authUser, userInfo) {
             this.setState(() => ({ authUser: authUser, userInfo: userInfo }))            
@@ -36,9 +35,11 @@ const applyProvider = (Component) =>
                     StoreService.saveTokenAndUID(token, uid);
 
                     UserService.getUser(uid)
-                        .then((data) => {
-                            console.log(data);
+                        .then((result) => {
+                            const user = result.data;
+                            this.setState({ userInfo: user });
                         }).catch(err => {
+                            // TODO : SHOW TOAST
                             console.log(err);
                         })
 
@@ -54,6 +55,7 @@ const applyProvider = (Component) =>
         render() {
             return (
               <UserContext.Provider value={this.state}>
+
                 <Component />
               </UserContext.Provider>
             );

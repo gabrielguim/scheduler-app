@@ -42,7 +42,7 @@ class SignUpTabPage extends Component {
         error: null
     };
 
-    registerUser = (context, user) => {
+    registerUser = async (context, user) => {
         auth.doCheckToken()
             .then(data => {
                 const token = data;
@@ -50,9 +50,10 @@ class SignUpTabPage extends Component {
 
                 UserService.registerUser(user)
                     .then(response => {
-                        const user = response.data
+                        const user = response.data;
                         context.updateUserInfo(user);
-                    }).catch(_ => { 
+                    }).catch(err => { 
+                        // TODO : SHOW TOAST
                         auth.doDeleteUser()
                             .then(_ => {
                                 auth.doSignOut();
