@@ -1,18 +1,25 @@
 import axios from 'axios';
 import { createSchedulerHeader } from './SchedulerHeader';
 
-export const registerUser = () => {
+const registerUser = (user) => {
     const headers = {
         headers: createSchedulerHeader()
     }
 
-    return axios.get('http://localhost:3001/api/user', headers);
+    return axios.post('http://localhost:3001/api/user', user, headers);
 }
 
-export const getUser = (uid) => {
+const getUser = (uid) => {
     const headers = {
         headers: createSchedulerHeader()
     }
 
-    return axios.get('http://localhost:3001/api/user', headers);
+    return axios.get('http://localhost:3001/api/user/' + uid, headers);
 }
+
+const UserService = {
+    registerUser,
+    getUser
+}
+
+export default UserService;

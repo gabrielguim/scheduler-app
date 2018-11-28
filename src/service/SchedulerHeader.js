@@ -1,7 +1,7 @@
-import { getTokenAndUID } from '../store/StoreService';
+import StoreService from '../store/StoreService';
 
 export const createSchedulerHeader = () => {
-    const { uid, token } = getTokenAndUID();
+    const { uid, token } = StoreService.getTokenAndUID();
 
     return  {
         'Content-Type': 'application/json',

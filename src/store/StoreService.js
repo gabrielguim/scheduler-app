@@ -1,9 +1,9 @@
-export const saveTokenAndUID = (token, uid) => {
+const saveTokenAndUID = (token, uid) => {
     localStorage.setItem("I", uid)
     localStorage.setItem("T", token);
 }
 
-export const getTokenAndUID = () => {
+const getTokenAndUID = () => {
     const uid = localStorage.getItem("I");
     const token = localStorage.getItem("T");
     
@@ -12,3 +12,10 @@ export const getTokenAndUID = () => {
         token
     }
 }
+
+const StoreService = {
+    saveTokenAndUID,
+    getTokenAndUID
+}
+
+export default StoreService;

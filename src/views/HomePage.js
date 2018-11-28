@@ -12,14 +12,12 @@ class HomePage extends Component {
     render() {
         return(
             <UserContext.Consumer>
-                {(context) => {
-                    console.log(context);
-                    
+                {(context) => {                    
                     return(
                         <Card>
                             <CardContent>
                                 <Typography color="textSecondary" gutterBottom>
-                                {context.userInfo.fullName}
+                                {context.userInfo.name}
                                 </Typography>
                                 <Typography variant="h5" component="h2">
                                 be

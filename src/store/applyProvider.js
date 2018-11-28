@@ -1,8 +1,8 @@
 import React from 'react';
 import UserContext from './UserContext';
 import { firebase } from '../firebase/Firebase';
-import { saveTokenAndUID } from './StoreService';
-import { getUser } from '../service/UserService';
+import StoreService from '../store/StoreService';
+import UserService from '../service/UserService';
 
 const applyProvider = (Component) => 
     class UserContextProvider extends React.Component {
@@ -12,11 +12,9 @@ const applyProvider = (Component) =>
             this.state = {
                 authUser: null,
                 userInfo: {
-                    'fullName': "Usuário",
+                    'name': "Usuário",
                     'email': "-",
-                    'uid': "",
-                    'address': "",
-                    'phone': ""
+                    'uid': ""
                 },
                 updateUserInfo: (newUserInfo) => {
                     this.setState(() => ({ userInfo: newUserInfo }))
@@ -31,14 +29,13 @@ const applyProvider = (Component) =>
         componentDidMount() {           
             firebase.auth.onAuthStateChanged(authUser => { 
                 if (authUser) {          
-                  authUser.getIdToken().then(function(data) {
+                  authUser.getIdToken().then(data => {
                     const uid = authUser.uid;
                     const token = data;
         
-                    saveTokenAndUID(token, uid);
+                    StoreService.saveTokenAndUID(token, uid);
 
-                    // TODO: use UserService.getUser instead only getUser
-                    getUser(uid)
+                    UserService.getUser(uid)
                         .then((data) => {
                             console.log(data);
                         }).catch(err => {

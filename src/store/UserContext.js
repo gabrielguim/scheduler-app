@@ -3,7 +3,7 @@ import React from 'react';
 const UserContext = React.createContext({
     authUser: null,
     userInfo: {
-        'fullName': "Usuário",
+        'name': "Usuário",
         'email': "-",
         'uid': "",
         'address': "",

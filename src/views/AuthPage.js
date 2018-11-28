@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
-import RegisterTabPage from './RegisterTabPage';
-import LoginTabPage from './LoginTabPage';
+import SignUpTabPage from './SignUpTabPage';
+import SignInTabPage from './SignInTabPage';
+import CustomLinearProgress from '../components/CustomLinearProgress';
 import SwipeableViews from 'react-swipeable-views';
 import { 
     AppBar, 
@@ -32,9 +33,12 @@ const styles = theme => ({
 class AuthPage extends Component {
 
     state = {
-        activeTab: 0
+        activeTab: 0,
+        showLoading: false
     }
 
+    showLinearProgress = (showLoading) => { this.setState({ showLoading: showLoading }); }
+    
     handleChange = (_, value) => { this.setState({ activeTab: value }); } 
     
     handleChangeIndex = index => { this.setState({ activeTab: index }); };
@@ -50,6 +54,7 @@ class AuthPage extends Component {
                             Scheduler
                         </Typography>
                     </Toolbar>
+                    <CustomLinearProgress loading={this.state.showLoading} />
                 </AppBar>
                 <Grid item xs={12}>
                     <Grid container className={classes.root} direction="column" justify="center" alignItems="center">
@@ -58,14 +63,14 @@ class AuthPage extends Component {
                                 <Tabs value={this.state.activeTab} indicatorColor="primary" fullWidth
                                     textColor="primary" onChange={this.handleChange}>
 
-                                    <Tab label="Entrar" />
-                                    <Tab label="Registrar" />
+                                    <Tab label="Sign in" />
+                                    <Tab label="Sign up" />
                                 </Tabs>
                                 <SwipeableViews axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
                                     index={this.state.activeTab} onChangeIndex={this.handleChangeIndex}>
 
-                                    <LoginTabPage />
-                                    <RegisterTabPage />
+                                    <SignInTabPage showProgress={this.showLinearProgress} />
+                                    <SignUpTabPage showProgress={this.showLinearProgress} />
                                 </SwipeableViews>
                             </CardContent>
                         </Card>                     
