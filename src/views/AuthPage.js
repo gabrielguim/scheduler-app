@@ -25,6 +25,9 @@ const styles = theme => ({
         backgroundColor: 'white',
         color: 'black'
     },
+    grow: {
+        flexGrow: 1
+    },
     content: {
         maxWidth: '60vh'
     }
@@ -50,9 +53,11 @@ class AuthPage extends Component {
             <div className={classes.root}>
                 <AppBar className={classes.appbar} elevation={0}> 
                     <Toolbar >
+                        <div className={classes.grow} />
                         <Typography variant="h6" color="inherit">
                             Scheduler
                         </Typography>
+                        <div className={classes.grow} />
                     </Toolbar>
                     <CustomLinearProgress loading={this.state.showLoading} />
                 </AppBar>

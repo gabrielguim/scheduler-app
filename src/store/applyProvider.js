@@ -12,7 +12,7 @@ const applyProvider = (Component) =>
             showSnippet: false,
             userInfo: {
                 '_id': "",
-                'name': "Usuário",
+                'name': "",
                 'email': "-",
                 'uid': ""
             },
@@ -25,7 +25,7 @@ const applyProvider = (Component) =>
             this.setState(() => ({ authUser: authUser, userInfo: userInfo }))            
         }
 
-        componentDidMount() {           
+        componentDidMount() {      
             firebase.auth.onAuthStateChanged(authUser => { 
                 if (authUser) {          
                   authUser.getIdToken().then(data => {
@@ -37,6 +37,7 @@ const applyProvider = (Component) =>
                     UserService.getUser(uid)
                         .then((result) => {
                             const user = result.data;
+                            console.log(user, result);
                             this.setState({ userInfo: user });
                         }).catch(err => {
                             // TODO : SHOW TOAST
@@ -55,7 +56,6 @@ const applyProvider = (Component) =>
         render() {
             return (
               <UserContext.Provider value={this.state}>
-
                 <Component />
               </UserContext.Provider>
             );
