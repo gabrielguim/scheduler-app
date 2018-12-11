@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 
-import SignUpTabPage from './SignUpTabPage';
-import SignInTabPage from './SignInTabPage';
-import CustomLinearProgress from '../components/CustomLinearProgress';
+import SignUpTabPage from '../SignUpTabPage/SignUpTabPage';
+import SignInTabPage from '../SignInTabPage/SignInTabPage';
+import CustomLinearProgress from '../../components/CustomLinearProgress';
 import SwipeableViews from 'react-swipeable-views';
+import styles from './AuthPage.style';
+
 import { 
     AppBar, 
     Toolbar, 
@@ -15,23 +17,6 @@ import {
     Tab,
     withStyles
 } from '@material-ui/core';
-
-const styles = theme => ({
-    root: {
-      flexGrow: 1,
-      minHeight: '100vh'
-    },
-    appbar: {
-        backgroundColor: 'white',
-        color: 'black'
-    },
-    grow: {
-        flexGrow: 1
-    },
-    content: {
-        maxWidth: '60vh'
-    }
-});
 
 class AuthPage extends Component {
 

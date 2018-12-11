@@ -14,8 +14,12 @@ export const doSignOut = () => {
   StoreService.clearTokenAndUID();
   return auth.signOut();
 }
-  
 
+// Delete
+export const doDeleteUser = () => {
+  return auth.currentUser.delete()
+}
+  
 // Sign Up
 export const doCheckToken = () =>
   auth.currentUser.getIdToken();

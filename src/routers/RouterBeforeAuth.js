@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import AuthPage from '../views/AuthPage';
+import AuthPage from '../views/AuthPage/AuthPage';
 
 const RouterBeforeAuth = () =>
   <Switch>

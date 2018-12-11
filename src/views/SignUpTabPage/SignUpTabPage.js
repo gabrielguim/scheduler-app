@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { auth } from '../firebase/Firebase';
-import CustomSnackBar from '../components/CustomSnackBar';
-import UserService from '../service/UserService';
-import StoreService from '../store/StoreService';
+import { auth } from '../../firebase/Firebase';
+import CustomSnackBar from '../../components/CustomSnackBar/CustomSnackBar';
+import UserService from '../../service/UserService';
+import StoreService from '../../store/StoreService';
+import styles from './SignUpTabPage.style';
 
 import { 
     withStyles, 
@@ -12,25 +13,7 @@ import {
     CardActions,
     Button
 } from '@material-ui/core';
-import UserContext from '../store/UserContext';
-
-const styles = theme => ({
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap'
-    },
-    sideMargin: {
-        display: 'flex',
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
-    },
-    signin: {
-        marginLeft: 'auto',
-        [theme.breakpoints.up('sm')]: {
-          marginRight: 0,
-        }
-    }
-});
+import UserContext from '../../store/UserContext';
 
 class SignUpTabPage extends Component {
 
@@ -53,7 +36,6 @@ class SignUpTabPage extends Component {
                         const user = response.data;
                         context.updateUserInfo(user);
                     }).catch(err => { 
-                        // TODO : SHOW TOAST
                         auth.doDeleteUser()
                             .then(_ => {
                                 auth.doSignOut();

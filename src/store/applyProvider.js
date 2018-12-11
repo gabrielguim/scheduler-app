@@ -37,7 +37,6 @@ const applyProvider = (Component) =>
                     UserService.getUser(uid)
                         .then((result) => {
                             const user = result.data;
-                            console.log(user, result);
                             this.setState({ userInfo: user });
                         }).catch(err => {
                             // TODO : SHOW TOAST
