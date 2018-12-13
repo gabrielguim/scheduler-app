@@ -7,6 +7,7 @@ const styles = theme => ({
     },
     grow: {
       flexGrow: 1,
+      maxWidth: 1000
     },
     menuButton: {
       marginLeft: -12,
@@ -69,6 +70,9 @@ const styles = theme => ({
     },
     growContent: {
       flexGrow: 1
+    },
+    marginToolbar: {
+      marginTop: 8
     }
   });
 

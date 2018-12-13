@@ -89,12 +89,10 @@ class HomePage extends Component {
                                     <div className={classes.grow} />
                                 </Toolbar>
                             </AppBar>
-                            <Grid item xs={12} >
+                            <Grid item xs={12} className={classes.marginToolbar}>
                                 <Grid container direction="column">
-                                    <div className={classes.growContent} />
-                                    <Grid container direction="row">
-                                        <div className={classes.growContent} />
-                                        <Card elevation={0} className={classes.grow} >
+                                    <Grid container direction="row" justify="center">
+                                        <Card elevation={0} className={classes.grow}>
                                             <Grid container direction="column">
                                                 <CardContent>
                                                     <Tabs value={this.state.activeTab} indicatorColor="primary" fullWidth
@@ -114,9 +112,7 @@ class HomePage extends Component {
                                                 </CardContent>
                                             </Grid>
                                         </Card>
-                                        <div className={classes.growContent} />
                                     </Grid>
-                                    <div className={classes.growContent} />
                                 </Grid>
                             </Grid>
                             <CustomFooter />
