@@ -1,29 +1,37 @@
 import React, { Component } from 'react';
-import { withStyles, Grid } from '@material-ui/core';
-import styles from './MySchedules.style';
-import ScheduleItem from '../../components/ScheduleItem/ScheduleItem';
+import ScheduleService from '../../service/ScheduleService';
+import StoreService from '../../store/StoreService';
+import UserContext from '../../store/UserContext';
+import SchedulerList from '../../components/ScheduleList/ScheduleList';
 
-class MySchedule extends Component {
+class MySchedules extends Component {
+
+    componentDidMount() {
+        this.fetchData();
+    }
+
+    fetchData = () => {
+        const { _id } = StoreService.getTokenAndUID();
+        const { context } = this.props;
+
+        if (context !== undefined && _id !== 'root') {
+            ScheduleService.getCalendarsForUser(_id)
+                .then(response => {
+                    context.updateCalendars(response.data);
+                }).catch(err => {
+                    console.log(err);
+                })
+        }
+    }
 
     render() {
-        const { classes } = this.props;
-
         return(
-            <Grid container className={classes.root}>
-                <Grid item xs={12}>
-                    <Grid container  spacing={16} alignItems="center"
-                        direction="row"  justify="center" className={classes.gridContainer}>
-                        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(value => (
-                        <Grid key={value} item xs={12} md={4}>
-                            <ScheduleItem></ScheduleItem>
-                        </Grid>
-                        ))}
-                    </Grid>
-                </Grid>
-            </Grid>
+            <UserContext.Consumer>
+                {context => <SchedulerList calendars={context.userCalendars} isOwner={true}></SchedulerList>}
+            </UserContext.Consumer>
         )
     }
 
 }
 
-export default withStyles(styles)(MySchedule)
+export default MySchedules

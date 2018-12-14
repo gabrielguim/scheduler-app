@@ -1,6 +1,7 @@
-const saveTokenAndUID = (token, uid) => {
+const saveTokenAndUID = (token, uid, _id) => {
     localStorage.setItem("I", uid)
     localStorage.setItem("T", token);
+    localStorage.setItem("_I", _id)
 }
 
 const clearTokenAndUID = () => {
@@ -10,10 +11,12 @@ const clearTokenAndUID = () => {
 const getTokenAndUID = () => {
     const uid = localStorage.getItem("I");
     const token = localStorage.getItem("T");
-    
+    const _id = localStorage.getItem("_I");
+
     return {
         uid,
-        token
+        token,
+        _id
     }
 }
 

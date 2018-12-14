@@ -29,12 +29,13 @@ class SignUpTabPage extends Component {
         auth.doCheckToken()
             .then(data => {
                 const token = data;
-                StoreService.saveTokenAndUID(token, user.uid);
+                StoreService.saveTokenAndUID(token, user.uid, 'root');
 
                 UserService.registerUser(user)
                     .then(response => {
-                        const user = response.data;
-                        context.updateUserInfo(user);
+                        const newUser = response.data;
+                        StoreService.saveTokenAndUID(token, user.uid, newUser._id);
+                        context.updateUserInfo(newUser);
                     }).catch(err => { 
                         auth.doDeleteUser()
                             .then(_ => {

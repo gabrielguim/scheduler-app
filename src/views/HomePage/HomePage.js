@@ -23,14 +23,19 @@ import {
 import TodayIcon from '@material-ui/icons/Today';
 import SearchIcon from '@material-ui/icons/Search';
 import CustomFooter from '../../components/CustomFooter/CustomFooter';
+import NewScheduleModal from '../../components/NewScheduleModal/NewScheduleModal';
+import ScheduleService from '../../service/ScheduleService';
+import StoreService from '../../store/StoreService';
+import CustomLinearProgress from '../../components/CustomLinearProgress';
+import SharedSchedules from '../SharedSchedules/SharedSchedules';
 
 class HomePage extends Component {
 
-    
     state = {
         activeTab: 0,
         showLoading: false,
-        focused: false
+        focused: false,
+        openModal: false
     }
 
     showLinearProgress = (showLoading) => { this.setState({ showLoading: showLoading }); }
@@ -42,14 +47,39 @@ class HomePage extends Component {
     handleChangeIndex = index => { this.setState({ activeTab: index }); };
     
     handleLogout = () => {
+        this.setState({ showLoading: true });
         auth.doSignOut()
             .then(data => {
-                // TODO : SHOW TOAST
+                this.setState({ showLoading: false });
                 console.log(data);
             }).catch(err => {
-                // TODO : SHOW TOAST
+                this.setState({ showLoading: false });
                 console.log(err);
             })
+    }
+
+    handleOpenModal = () => {
+        this.setState({ openModal: true })
+    }
+
+    handleCloseModal = () => {
+        this.setState({ openModal: false })
+    }
+
+    searchCalendar = (context, e) => {
+        const { _id } = StoreService.getTokenAndUID();
+
+        this.setState({ showLoading: true });
+        if (context !== undefined && _id !== 'root') {
+            ScheduleService.searchCalendar(_id, e.target.value)
+                .then(response => {
+                    this.setState({ showLoading: false });
+                    context.updateCalendars(response.data);
+                }).catch(err => {
+                    this.setState({ showLoading: false });
+                    console.log(err);
+                })
+        }
     }
 
     render() {
@@ -60,6 +90,7 @@ class HomePage extends Component {
                 {(context) => {                    
                     return(
                         <div className={classes.root}>
+                            <NewScheduleModal open={this.state.openModal} handleClose={this.handleCloseModal}></NewScheduleModal>
                             <AppBar position="relative" className={classes.appbar} elevation={this.state.focused ? 2 : 0 }>
                                 <Toolbar>
                                     <div className={classes.grow} />
@@ -77,7 +108,7 @@ class HomePage extends Component {
                                         placeholder="Search…"
                                         onFocus={() => this.handleFocus(true)}
                                         onBlur={() => this.handleFocus(false)}
-                                        onChange={(e) => console.log('changed', e)}
+                                        onChange={(e) => this.searchCalendar(context, e)}
                                         className={classes.inputColor}
                                         classes={{
                                             root: classes.inputRoot,
@@ -88,6 +119,7 @@ class HomePage extends Component {
                                     <Button color="primary" onClick={() => this.handleLogout(context)}>Log out</Button>
                                     <div className={classes.grow} />
                                 </Toolbar>
+                                <CustomLinearProgress loading={this.state.showLoading} />
                             </AppBar>
                             <Grid item xs={12} className={classes.marginToolbar}>
                                 <Grid container direction="column">
@@ -98,16 +130,14 @@ class HomePage extends Component {
                                                     <Tabs value={this.state.activeTab} indicatorColor="primary" fullWidth
                                                         textColor="primary" onChange={this.handleChange}>
 
-                                                        <Tab label="Meus Calendários" />
-                                                        <Tab label="Compartilhados Comigo" />
-                                                        <Tab label="Alguma outra coisa" />
+                                                        <Tab label="My Schedules" />
+                                                        <Tab label="Shared with Me" />
                                                     </Tabs>
                                                     <SwipeableViews axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
                                                         index={this.state.activeTab} onChangeIndex={this.handleChangeIndex}>
 
-                                                        <MySchedules showProgress={this.showLinearProgress}></MySchedules>
-                                                        <MySchedules showProgress={this.showLinearProgress}></MySchedules>
-                                                        <MySchedules showProgress={this.showLinearProgress}></MySchedules>
+                                                        <MySchedules {...this.props} context={context} showProgress={this.showLinearProgress}></MySchedules>
+                                                        <SharedSchedules {...this.props} context={context} showProgress={this.showLinearProgress}></SharedSchedules>
                                                     </SwipeableViews>
                                                 </CardContent>
                                             </Grid>
@@ -115,7 +145,7 @@ class HomePage extends Component {
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            <CustomFooter />
+                            <CustomFooter openModal={this.handleOpenModal} />
                         </div>
                     )
                 }}
